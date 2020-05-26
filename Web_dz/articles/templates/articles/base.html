@@ -29,7 +29,11 @@
         {% else %}
             <div class="row Logout_and_Settings">
                 <div class="avatar col-lg-7">
-                    <img src="{% static 'images/fox.jpg' %}" alt="No Fox">
+{#                 {{ MEDIA_URL }}{{ request.user.avatar }}#}
+{#                     {% static 'images/fox.jpg' %}#}
+{#                   <img src="{{ MEDIA_URL }}{{ request.user.avatar }}">#}
+                     <img src="{% static 'avatars/fox.jpg' %}" alt="No Fox">
+{#                   <img src="{% static 'images/fox.jpg' %}" alt="No Fox">#}
                 </div>
                 <div class="col-lg-5">
                     <h5 class="username">{{ request.user }}</h5>

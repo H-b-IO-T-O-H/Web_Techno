@@ -1,9 +1,5 @@
-from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
-
-from django.urls import path
 from accounts import views
-from accounts.models import User
+from django.urls import path
 
 app_name = 'accounts'
 urlpatterns = [
@@ -14,3 +10,5 @@ urlpatterns = [
     path('settings/', views.settings_view, name='settings'),
 
 ]
+
+

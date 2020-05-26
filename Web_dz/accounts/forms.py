@@ -92,7 +92,4 @@ class SettingsForm(forms.Form):
 
     def clean(self):
         passwd = self.cleaned_data['password']
-        repeat = self.cleaned_data['repeat_password']
-        if passwd != repeat:
-            raise forms.ValidationError("Passwords aren't the same!")
         return self.cleaned_data

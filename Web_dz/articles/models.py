@@ -1,5 +1,6 @@
 from accounts.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
@@ -27,14 +28,13 @@ class Tag(models.Model):
 
 
 class LikeDislikeManager(models.Manager):
-    def create_like(self, user, instance, object_id, action):
+    def create_like_dislike(self, user, instance, object_id, action):
         try:
             like = self.filter(user=user).get(object_id=object_id)
             if like.beenPut and action == 'down':
                 like.beenPut = False
-                instance.total_likes -= 1
-                if instance.total_likes == -1:
-                    instance.total_likes = 0
+                if instance.total_likes >= 1:
+                    instance.total_likes -= 1
             elif not like.beenPut and action == 'up':
                 like.beenPut = True
                 instance.total_likes += 1
@@ -112,7 +112,7 @@ class Answer(models.Model):
     text = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)
     total_likes = models.IntegerField(default=0)
-    flag = models.BooleanField(blank=True, default=False)
+    correct = models.BooleanField(blank=True, default=False)
 
     def publish(self):
         self.create_date = timezone.now()

@@ -103,6 +103,6 @@ def vote(request):
 		data_object = Question.objects.get(pk=data_id)
 	else:
 		data_object = Answer.objects.get(pk=data_id)
-	LikeDislike.objects.create_like(user, instance=data_object, object_id=data_id, action=action)
+	LikeDislike.objects.create_like_dislike(user, instance=data_object, object_id=data_id, action=action)
 
 	return HttpResponse(data_object.total_likes, status=200)

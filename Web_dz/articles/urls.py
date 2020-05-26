@@ -1,7 +1,4 @@
-from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 from django.urls import path
-
 from articles import views
 from articles.models import LikeDislike, Question, Answer
 
@@ -13,3 +10,5 @@ urlpatterns = [
 	path('tags/<int:tag_id>', views.tags_list, name='tags_list'),
 	path('ajax/vote/', views.vote, name="vote")
 ]
+
+

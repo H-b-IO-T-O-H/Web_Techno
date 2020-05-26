@@ -15,10 +15,10 @@ def registration_view(request):
         return render(request, 'accounts/registration.html',
                       {'form': RegistrationForm})
     elif request.method == 'POST':
-        form = RegistrationForm(request.POST, request.FILES)
+        form = RegistrationForm(request.POST, request.FILES or None)
         if not form.is_valid():
             return render(request, 'accounts/registration.html', {'form': form})
-        # avatar = form.cleaned_data['avatar']
+        avatar = form.cleaned_data['avatar']
         password = form.cleaned_data['password']
         username = form.cleaned_data['username']
         user = User.objects.create_user(email=form.cleaned_data['email'],
@@ -26,6 +26,7 @@ def registration_view(request):
                                         username=username,
                                         first_name=form.cleaned_data['first_name'],
                                         last_name=form.cleaned_data['last_name'],
+                                        avatar=avatar,
                                         )
         if user is not None:
             user.save()
