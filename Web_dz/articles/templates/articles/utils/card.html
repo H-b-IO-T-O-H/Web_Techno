@@ -1,0 +1,42 @@
+{% load static %}
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="row">
+            <h3 class="col-lg-2">{{ question.author }}</h3>
+            <p class="col-lg-10 text-right"> {{ question.create_date }}</p>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="row col-lg-3">
+                 {% include 'articles/utils/likeDisQuestions.html' %}
+                <div class="row col-lg-7">
+                    <img class="user_avatar card-img"
+                         src="{% static 'avatars/user_avatar.jpg' %}"
+                         alt="No avatar">
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <h3 class="card-title text-center">{{ question.title }}</h3>
+                <p class=" text-break" style="max-width: 100%;">
+                    {{ question.text|truncatewords:30 }}
+                </p>
+                <div class="row">
+                    <a href="{% url 'articles:display_single' question.id %}" class="col-lg-6 stretched-link">Continue
+                        reading</a>
+                    <a href="{% url 'articles:display_single' question.id %}"
+                       class="col-lg-6 text-right stretched-link">Answers({{ question.total_answers }})</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        Tags:
+        {% if not question.tags.all %}
+            None
+        {% endif %}
+        {% for tag in question.tags.all %}
+            <a href="{% url 'articles:tags_list' tag.id %}">{{ tag.tag_name }}</a>
+        {% endfor %}
+    </div>
+</div>
