@@ -7,21 +7,23 @@
     <div class="card card_answer ">
         <div class="card-header">
             <div class="row">
-                <h3 class="col-lg-2">{{ question.author }}</h3>
-                <p class="col-lg-10 text-right"> {{ question.create_date }}</p>
+                <h3 class="col-2">{{ question.author }}</h3>
+                <p class="col-10 text-right"> {{ question.create_date }}</p>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="row col-lg-3">
+                <div class="row col-3">
                     {% include 'articles/utils/likeDisQuestions.html' %}
-                    <div class="row col-lg-7">
-                        <img class="user_avatar card-img"
-                             src="{% static 'avatars/user_avatar.jpg' %}"
-                             alt="No avatar">
+                    <div class="row col-7">
+                        {% if question.author.avatar != '' %}
+                            <img class="user_avatar card-img" src="{% static question.author.avatar %}" alt="no avatar">
+                        {% else %}
+                            <img class="user_avatar card-img" src="{% static 'default_avatar.svg' %}" alt="">
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-lg-9">
+                <div class="col-9">
                     <h3 class="card-title text-center">{{ question.title }}</h3>
                     <p class=" text-break" style="max-width: 100%;">{{ question.text }}</p>
                 </div>

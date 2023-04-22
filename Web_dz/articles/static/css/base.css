@@ -19,12 +19,12 @@
     text-align: right;
 }
 
-.card_answer{
-    margin-top:55px
+.card_answer {
+    margin-top: 55px
 }
 
-.user_avatar{
-     width: 100px;
+.user_avatar {
+    width: 80px;
     height: 100px;
 }
 
@@ -45,14 +45,15 @@
     text-decoration: none;
 }
 
-.nav_popular{
+.nav_popular {
     padding-top: 0;
     padding-bottom: 0;
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
-.navbar{
-    background: #4e555b;
+.navbar {
+    background: #155599;
 }
+
 #4e555b

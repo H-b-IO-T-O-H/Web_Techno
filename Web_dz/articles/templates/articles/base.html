@@ -2,44 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Cat In Hat{% endblock %}</title>
+    <title>{% block title %}10-ka Labs{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
 <nav class="navbar navbar-expand navbar-dark sticky-top">
-    <div class="col-lg-2">
-        <a class="navbar-brand" href="{% url 'articles:Cat In Hat' %}">Cat In Hat</a>
+    <div class="col-2">
+        <a class="navbar-brand" href="{% url 'articles:Cat In Hat' %}">10-ka Labs</a>
     </div>
-    <form class="col-lg-4">
+    <form class="col-4">
         <input class="form-control" type="search" placeholder="Search" aria-label="Search">
     </form>
-    <div class="col-lg-3 text-right">
+    <div class="col-3 text-right">
         <a href="{% url 'articles:ask' %}">
             <button class="btn btn-success btn-lg my-2 center-block" type="submit">ASK!</button>
         </a>
     </div>
-    <div class="col-lg-3">
+    <div class="col-3">
         {% if request.user.is_anonymous %}
             <div class="row Login_and_Register">
-                <div class="login col-lg-10"><a href="{% url 'accounts:login' %}">Log in</a></div>
-                <div class="Registration col-lg-2"><a href="{% url 'accounts:registration' %}">Register</a></div>
+                <div class="login col-10"><a href="{% url 'accounts:login' %}">Log in</a></div>
+                <div class="Registration col-2"><a href="{% url 'accounts:registration' %}">Register</a></div>
             </div>
         {% else %}
             <div class="row Logout_and_Settings">
-                <div class="avatar col-lg-7">
-{#                 {{ MEDIA_URL }}{{ request.user.avatar }}#}
-{#                     {% static 'images/fox.jpg' %}#}
-{#                   <img src="{{ MEDIA_URL }}{{ request.user.avatar }}">#}
-                     <img src="{% static 'avatars/fox.jpg' %}" alt="No Fox">
-{#                   <img src="{% static 'images/fox.jpg' %}" alt="No Fox">#}
+                <div class="avatar col-7">
+                    {% if request.user.avatar != '' %}
+                        <img class="user_avatar card-img" src="{% static request.user.avatar %}" alt="no avatar">
+                    {% else %}
+                        <img class="user_avatar card-img" src="{% static 'default_avatar.svg' %}" alt="">
+                    {% endif %}
                 </div>
-                <div class="col-lg-5">
+                <div class="col-5">
                     <h5 class="username">{{ request.user }}</h5>
                     <div class="row">
-                        <div class="Settings col-lg-6"><a href="{% url 'accounts:settings' %}">Settings</a></div>
-                        <div class="Logout col-lg-6"><a href="{% url 'accounts:logout' %}">Log out</a></div>
+                        <div class="Settings col-6"><a href="{% url 'accounts:settings' %}">Settings</a></div>
+                        <div class="Logout col-6"><a href="{% url 'accounts:logout' %}">Log out</a></div>
                     </div>
                 </div>
             </div>
@@ -48,15 +48,15 @@
 </nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-9">
             {% block content %}
             {% endblock %}
         </div>
-        <div class="col-lg-3 my-5">
+        <div class="col-3 my-5">
             <ul class="list-group my-2">
                 <li class="list-group-item d-flex">
                     <div>
-                        <h3 class="font-italic">Popular tags</h3>
+                        <h3 class="font-italic">Популярные тэги</h3>
                         <ul class="row list-unstyled popular_tags">
                             {% for t in tags %}
                                 <li class="active-link ml-3"><a
@@ -67,7 +67,7 @@
                 </li>
                 <li class="list-group-item d-flex">
                     <div>
-                        <h3 class="font-italic">Best Members</h3>
+                        <h3 class="font-italic">Активные пользователи</h3>
                         <ul class="list-unstyled">
                             {% for u in users %}
                                 <li>{{ u.username }}</li>

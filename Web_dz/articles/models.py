@@ -65,11 +65,9 @@ class LikeDislike(models.Model):
 
 class QuestionManager(models.Manager):
     def create_question(self, **kwargs):
-        author = kwargs['author']
-        title = kwargs['title']
-        text = kwargs['text']
         tags = kwargs['tags']
-        question = self.create(author=author, title=title, text=text)
+        question = self.create(author=kwargs.get('author'), title=kwargs.get('title'), text=kwargs.get('text'),
+                               is_pinned=kwargs.get('is_pinned'))
         question.save()
         for tag in tags:
             current_tag = Tag.objects.add_tags(tag)
@@ -86,6 +84,7 @@ class Question(models.Model):
     tags = models.ManyToManyField('Tag', blank=True, related_name='questions')
     total_answers = models.IntegerField(default=0)
     total_likes = models.IntegerField(default=0)
+    is_pinned = models.BooleanField(default=True)
 
     def publish(self):
         self.create_date = timezone.now()

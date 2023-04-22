@@ -5,12 +5,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from accounts.forms import LoginForm, RegistrationForm, SettingsForm
 
-
 User = get_user_model()
 
 
 def registration_view(request):
-
     if request.method == 'GET':
         return render(request, 'accounts/registration.html',
                       {'form': RegistrationForm})
@@ -42,7 +40,6 @@ def registration_view(request):
 
 
 def login_view(request):
-
     if request.user.is_authenticated:
         return redirect('articles:Cat In Hat')
     if request.method == 'GET':
@@ -63,6 +60,7 @@ def login_view(request):
                       {'error': 'Full out the forms correctly', 'form': form})
     return render(request, 'accounts/login.html')
 
+
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
@@ -70,7 +68,6 @@ def logout_view(request):
 
 
 def settings_view(request):
-
     if request.method == 'POST':
         form = SettingsForm(request.POST, request.FILES)
         if not form.is_valid():
